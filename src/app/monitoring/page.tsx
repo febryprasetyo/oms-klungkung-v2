@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Parameter from '../../component/Parameter';
 import MonitoringCard from '@/component/MonitoringCard';
 import MonitoringCardBod from '@/component/MonitoringCardBod';
 import mqtt from 'mqtt';
