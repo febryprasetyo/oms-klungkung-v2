@@ -1,6 +1,5 @@
 import Navbar from '@/component/Navbar';
 import { MonitPage } from '@/app/monitoring/MonitPage';
-import { fetchPostById } from '@/db/mqtt';
 import Monitoring from './monitoring/page';
 
 export default async function Home() {
