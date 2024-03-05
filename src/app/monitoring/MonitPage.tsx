@@ -1,10 +1,12 @@
 'use client';
 
+import type { NextApiRequest, NextApiResponse } from 'next';
 import React, { useEffect, useState } from 'react';
 import { onSnapshot, collection, getDoc } from 'firebase/firestore';
 import db from '@/firebase/config';
 import MonitoringCard from '@/component/MonitoringCard';
 import MonitoringCardBod from '@/component/MonitoringCardBod';
+import prisma from '@/lib/prisma';
 
 const initSpeedometer = {
   bod: 0,
@@ -25,7 +27,16 @@ const initSpeedometer = {
   uuid: '',
 };
 
-const MonitPage = () => {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const users = await prisma.mqtt_datas.findMany();
+  res.status(200).json({ users: users });
+  console.log(users);
+}
+// eslint-disable-next-line @next/next/no-async-client-component
+export const MonitPage = () => {
   const id = '240305005225029';
   const [dataMonitoring, setDataMonitoring] = useState(initSpeedometer);
   const stationCollectionRef = collection(db, `watermonitoring`);
@@ -133,5 +144,3 @@ const MonitPage = () => {
     </main>
   );
 };
-
-export default MonitPage;

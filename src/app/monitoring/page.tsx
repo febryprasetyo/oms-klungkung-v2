@@ -7,7 +7,7 @@ import MonitoringCardBod from '@/component/MonitoringCardBod';
 import mqtt from 'mqtt';
 
 const initSpeedometer = {
-  BOD: 0,
+  BOD: 10,
   COD: 0,
   CT: 0,
   DEPTH: 0,
@@ -26,7 +26,7 @@ const initSpeedometer = {
 };
 
 function Monitoring() {
-  const [dataMonitoring, setDataMonitoring] = useState(initSpeedometer);
+  // const [initSpeedometer, setinitSpeedometer] = useState(initSpeedometer);
   const [dataIsLoad, setDataIsLoad] = useState(false);
 
   const id = '240305005225029';
@@ -45,7 +45,7 @@ function Monitoring() {
       const uuidx = jsonString['uuid'];
       if (uuidx === id) {
         //   setUuid(id);
-        setDataMonitoring(jsonString.data[jsonString.data.length - 1]);
+        // setinitSpeedometer(jsonString.data[jsonString.data.length - 1]);
         setDataIsLoad(true);
       }
     });
@@ -68,83 +68,83 @@ function Monitoring() {
         <div className='grid grid-cols-1 gap-4 py-7 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6 3xl:grid-cols-6'>
           <MonitoringCard
             title='Temperature'
-            value={+dataMonitoring.Temperature.toFixed(2)}
+            value={+initSpeedometer.Temperature.toFixed(2)}
             unit={`\u00B0C`}
-            time={dataMonitoring.time}
+            time={initSpeedometer.time}
           />
           <MonitoringCard
             title='DO'
-            value={+dataMonitoring.DO.toFixed(2)}
+            value={+initSpeedometer.DO.toFixed(2)}
             unit='mg/L'
-            time={dataMonitoring.time}
+            time={initSpeedometer.time}
           />
           <MonitoringCard
             title='Turbidity'
-            value={+dataMonitoring.TUR.toFixed(2)}
+            value={+initSpeedometer.TUR.toFixed(2)}
             unit='NTU'
-            time={dataMonitoring.time}
+            time={initSpeedometer.time}
           />
           <MonitoringCard
             title='TDS'
-            value={+dataMonitoring.CT.toFixed(2)}
+            value={+initSpeedometer.CT.toFixed(2)}
             unit='ppm'
-            time={dataMonitoring.time}
+            time={initSpeedometer.time}
           />
           <MonitoringCard
             title='pH'
-            value={+dataMonitoring.PH.toFixed(2)}
+            value={+initSpeedometer.PH.toFixed(2)}
             unit='pH'
-            time={dataMonitoring.time}
+            time={initSpeedometer.time}
           />
           <MonitoringCard
             title='ORP'
-            value={+dataMonitoring.ORP.toFixed(2)}
+            value={+initSpeedometer.ORP.toFixed(2)}
             unit='Mv'
-            time={dataMonitoring.time}
+            time={initSpeedometer.time}
           />
           <MonitoringCardBod
             title='BOD'
-            value={+dataMonitoring.BOD.toFixed(2)}
-            valuecod={+dataMonitoring.COD.toFixed(2)}
+            value={+initSpeedometer.BOD.toFixed(2)}
+            valuecod={+initSpeedometer.COD.toFixed(2)}
             unit='mg/L'
-            time={dataMonitoring.time}
+            time={initSpeedometer.time}
           />
           <MonitoringCard
             title='COD'
-            value={+dataMonitoring.COD.toFixed(2)}
+            value={+initSpeedometer.COD.toFixed(2)}
             unit='mg/L'
-            time={dataMonitoring.time}
+            time={initSpeedometer.time}
           />
           <MonitoringCard
             title='TSS'
-            value={+dataMonitoring.TSS.toFixed(2)}
+            value={+initSpeedometer.TSS.toFixed(2)}
             unit='mg/L'
-            time={dataMonitoring.time}
+            time={initSpeedometer.time}
           />
           <MonitoringCard
             title='Amonia'
-            value={+dataMonitoring.N.toFixed(2)}
+            value={+initSpeedometer.N.toFixed(2)}
             unit='mg/L'
-            time={dataMonitoring.time}
+            time={initSpeedometer.time}
           />
           <MonitoringCard
             title='Nitrat'
-            value={+dataMonitoring['NO3-3'].toFixed(2)}
+            value={+initSpeedometer['NO3-3'].toFixed(2)}
             unit='mg/L'
-            time={dataMonitoring.time}
+            time={initSpeedometer.time}
           />
 
           <MonitoringCard
             title='Nitrit'
-            value={+dataMonitoring.NO2.toFixed(2)}
+            value={+initSpeedometer.NO2.toFixed(2)}
             unit='mg/L'
-            time={dataMonitoring.time}
+            time={initSpeedometer.time}
           />
           <MonitoringCard
             title='Kedalaman'
-            value={+dataMonitoring.DEPTH.toFixed(2)}
+            value={+initSpeedometer.DEPTH.toFixed(2)}
             unit='M'
-            time={dataMonitoring.time}
+            time={initSpeedometer.time}
           />
         </div>
       </section>

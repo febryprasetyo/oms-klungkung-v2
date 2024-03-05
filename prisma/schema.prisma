@@ -1,0 +1,137 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model cities {
+  id          Int     @id(map: "cities_pk") @default(autoincrement())
+  city_name   String? @db.VarChar(200)
+  province_id Int
+}
+
+model devices {
+  id           Int       @id(map: "devices_pk") @default(autoincrement())
+  created_at   DateTime  @default(now()) @db.Timestamp(6)
+  updated_at   DateTime? @db.Timestamp(6)
+  id_mesin     String?   @unique(map: "devices_un") @db.VarChar(200)
+  nama_dinas   String?   @db.VarChar(300)
+  nama_stasiun String?   @db.VarChar(300)
+  created_by   Int?
+  dinas_id     Int?
+}
+
+model mqtt_datas {
+  id          BigInt    @id(map: "watermonitoringv2_pk") @default(autoincrement())
+  uuid        String?   @db.VarChar(100)
+  time        DateTime? @db.Timestamp(6)
+  temperature String?   @db.VarChar(255)
+  do_         String?   @db.VarChar(255)
+  tur         String?   @db.VarChar(255)
+  ct          String?   @db.VarChar(255)
+  ph          String?   @db.VarChar(255)
+  orp         String?   @db.VarChar(255)
+  bod         String?   @db.VarChar(255)
+  cod         String?   @db.VarChar(255)
+  tss         String?   @db.VarChar(255)
+  n           String?   @db.VarChar(255)
+  no3_3       String?   @db.VarChar(255)
+  no2         String?   @db.VarChar(255)
+  depth       String?   @db.VarChar(255)
+  lgnh4_      String?   @map("lgnh4+") @db.VarChar(255)
+  liquid      String?   @db.VarChar(255)
+}
+
+model provinces {
+  id            Int     @id(map: "provinces_pk") @default(autoincrement())
+  province_name String? @db.VarChar(200)
+}
+
+model r_config {
+  code        String  @id(map: "pk_r_config") @db.VarChar(50)
+  type        String? @db.VarChar(10)
+  value       String?
+  description String? @db.VarChar(200)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model res_klhk {
+  id          BigInt    @default(autoincrement())
+  created_at  DateTime  @default(now()) @db.Timestamp(6)
+  updated_at  DateTime? @db.Timestamp(6)
+  payload     String?
+  data_uid    String?   @db.VarChar(100)
+  status_code Int?
+  status_desc String?   @db.VarChar(300)
+  id_stasiun  String?   @db.VarChar(100)
+
+  @@ignore
+}
+
+model roles {
+  id        String @id(map: "roles_pk") @db.VarChar(10)
+  role_name String @db.VarChar(20)
+  order_no  Int?
+}
+
+model stations {
+  id            BigInt    @id(map: "stations_pk") @default(autoincrement())
+  created_at    DateTime  @default(now()) @db.Timestamp(6)
+  updated_at    DateTime? @db.Timestamp(6)
+  device_id     String?   @db.VarChar
+  nama_stasiun  String?   @db.VarChar(300)
+  address       String?   @db.VarChar(500)
+  province_id   Int?
+  province_name String?   @db.VarChar(100)
+  city_id       Int?
+  city_name     String?   @db.VarChar(200)
+  nama_dinas    String?   @db.VarChar(300)
+  id_mesin      String?   @db.VarChar(200)
+  created_by    Int?
+}
+
+model users {
+  id         Int      @id(map: "users_pk") @default(autoincrement())
+  username   String   @db.VarChar(20)
+  fullname   String?  @db.VarChar(100)
+  email      String?  @db.VarChar(50)
+  password   String?  @db.VarChar(100)
+  phone      String?  @db.VarChar(50)
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @default(now()) @db.Timestamptz(6)
+  role_id    String   @db.VarChar(10)
+  is_active  Boolean  @default(false)
+  jwt_age    Int      @default(3600)
+  device_id  Int?
+  api_key    String?  @db.VarChar(300)
+  secret_key String?  @db.VarChar(300)
+  created_by Int?
+  nama_dinas String?  @db.VarChar(300)
+}
+
+model watermonitoring {
+  id          Int       @id(map: "watermonitoring_pk") @default(autoincrement())
+  createtime  BigInt?
+  temperature String?   @db.VarChar(100)
+  ph          String?   @db.VarChar(100)
+  tds         String?   @db.VarChar(100)
+  nh3n        String?   @db.VarChar(100)
+  tss         String?   @db.VarChar(100)
+  turbidity   String?   @db.VarChar(100)
+  do_         String?   @db.VarChar(100)
+  no3         String?   @db.VarChar(100)
+  cod         String?   @db.VarChar(100)
+  bod         String?   @db.VarChar(100)
+  waterlevel  String?   @db.VarChar(100)
+  is_success  Boolean?  @default(false)
+  sync_time   DateTime? @db.Timestamp(6)
+  res_menlhk  String?
+  exec_count  Int       @default(0)
+  id_stasiun  String?   @db.VarChar(100)
+  uuid        String?   @db.VarChar(100)
+  project     String?   @db.VarChar(100)
+  time        DateTime? @db.Timestamp(6)
+}
