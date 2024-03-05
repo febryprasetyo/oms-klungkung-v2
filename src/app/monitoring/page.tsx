@@ -26,41 +26,41 @@ const initSpeedometer = {
 
 function Monitoring() {
   // const [initSpeedometer, setinitSpeedometer] = useState(initSpeedometer);
-  const [dataIsLoad, setDataIsLoad] = useState(false);
+  // const [dataIsLoad, setDataIsLoad] = useState(false);
 
-  const id = '240305005225029';
-  const topic = 'mqtt_ccb3aad79fe5';
-  useEffect(() => {
-    // Connect to the MQTT broker
-    const client = mqtt.connect('ws://103.84.206.53:9001');
+  // const id = '240305005225029';
+  // const topic = 'mqtt_ccb3aad79fe5';
+  // useEffect(() => {
+  // Connect to the MQTT broker
+  // const client = mqtt.connect('ws://103.84.206.53:9001');
 
-    // Subscribe to the MQTT topic
-    client.subscribe(topic);
+  // Subscribe to the MQTT topic
+  // client.subscribe(topic);
 
-    // Handle incoming messages
-    client.on('message', (_topic, message) => {
-      // Handle the incoming message
-      const jsonString = JSON.parse(message.toString());
-      const uuidx = jsonString['uuid'];
-      if (uuidx === id) {
-        //   setUuid(id);
-        // setinitSpeedometer(jsonString.data[jsonString.data.length - 1]);
-        setDataIsLoad(true);
-      }
-    });
+  // Handle incoming messages
+  // client.on('message', (_topic, message) => {
+  // Handle the incoming message
+  // const jsonString = JSON.parse(message.toString());
+  // const uuidx = jsonString['uuid'];
+  // if (uuidx === id) {
+  //   setUuid(id);
+  // setinitSpeedometer(jsonString.data[jsonString.data.length - 1]);
+  //     setDataIsLoad(true);
+  //   }
+  // });
 
-    // Cleanup on component unmount
-    return () => {
-      client.end(); // Close the MQTT connection
-      setDataIsLoad(false);
-    };
-  }, [id]);
+  // Cleanup on component unmount
+  //   return () => {
+  //     client.end(); // Close the MQTT connection
+  //     setDataIsLoad(false);
+  //   };
+  // }, [id]);
 
-  if (!dataIsLoad) {
-    return (
-      <p className='text-center text-lg font-bold mt-4'>Waiting Resources...</p>
-    );
-  }
+  // if (!dataIsLoad) {
+  //   return (
+  //     <p className='text-center text-lg font-bold mt-4'>Waiting Resources...</p>
+  //   );
+  // }
   return (
     <main className={`px-5  transition-all sm:px-10 `}>
       <section>
