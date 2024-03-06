@@ -51,21 +51,21 @@ function Monitoring() {
     });
 
     // Cleanup on component unmount
-    // return () => {
-    //   client.end(); // Close the MQTT connection
-    //   setDataIsLoad(false);
-    // };
+    return () => {
+      client.end(); // Close the MQTT connection
+      setDataIsLoad(false);
+    };
   }, [id]);
 
-  // if (!dataIsLoad) {
-  //   return (
-  //     <p className='text-center text-lg font-bold mt-4'>Waiting Resources...</p>
-  //   );
-  // }
+  if (!dataIsLoad) {
+    return (
+      <p className='text-center text-lg font-bold mt-4'>Waiting Resources...</p>
+    );
+  }
   return (
     <main className={`px-5  transition-all sm:px-10 `}>
       <section>
-        <div className='grid grid-cols-1 gap-4 py-7 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6 3xl:grid-cols-6'>
+        <div className='grid grid-cols-1 gap-4 py-7 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-5 3xl:grid-cols-5'>
           <MonitoringCard
             title='Temperature'
             value={+dataMonitoring.Temperature.toFixed(2)}
