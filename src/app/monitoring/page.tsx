@@ -27,35 +27,38 @@ const initSpeedometer = {
 
 function Monitoring() {
   const [dataMonitoring, setDataMonitoring] = useState(initSpeedometer);
+  const [dataMonitoring2, setDataMonitoring2] = useState(initSpeedometer);
+  const [dataMonitoring3, setDataMonitoring3] = useState(initSpeedometer);
   const [dataIsLoad, setDataIsLoad] = useState(false);
 
-  const id = '240305005225029';
+  const id1 = '240305005225028';
+  const id2 = '240305005225029';
+  const id3 = '240305005225030';
   const topic = 'mqtt_ccb3aad79fe5';
   useEffect(() => {
-    // Connect to the MQTT broker
     const client = mqtt.connect('ws://103.84.206.53:9001');
-
-    // Subscribe to the MQTT topic
     client.subscribe(topic);
-
-    // Handle incoming messages
     client.on('message', (_topic, message) => {
-      // Handle the incoming message
       const jsonString = JSON.parse(message.toString());
       const uuidx = jsonString['uuid'];
-      if (uuidx === id) {
-        //   setUuid(id);
+      if (uuidx === id1) {
         setDataMonitoring(jsonString.data[jsonString.data.length - 1]);
         setDataIsLoad(true);
       }
+      if (uuidx === id2) {
+        setDataMonitoring2(jsonString.data[jsonString.data.length - 1]);
+        setDataIsLoad(true);
+      }
+      if (uuidx === id3) {
+        setDataMonitoring3(jsonString.data[jsonString.data.length - 1]);
+        setDataIsLoad(true);
+      }
     });
-
-    // Cleanup on component unmount
     return () => {
       client.end(); // Close the MQTT connection
       setDataIsLoad(false);
     };
-  }, [id]);
+  }, [id1, id2, id3]);
 
   if (!dataIsLoad) {
     return (
@@ -86,32 +89,32 @@ function Monitoring() {
           />
           <MonitoringCard
             title='TDS'
-            value={+dataMonitoring.CT.toFixed(2)}
+            value={+dataMonitoring3.CT.toFixed(2)}
             unit='ppm'
             time={dataMonitoring.time}
           />
           <MonitoringCard
             title='pH'
-            value={+dataMonitoring.PH.toFixed(2)}
+            value={+dataMonitoring3.PH.toFixed(2)}
             unit='pH'
             time={dataMonitoring.time}
           />
           <MonitoringCard
             title='ORP'
-            value={+dataMonitoring.ORP.toFixed(2)}
+            value={+dataMonitoring3.ORP.toFixed(2)}
             unit='Mv'
             time={dataMonitoring.time}
           />
           <MonitoringCardBod
             title='BOD'
-            value={+dataMonitoring.BOD.toFixed(2)}
+            value={+(dataMonitoring.BOD - 20).toFixed(2)}
             valuecod={+dataMonitoring.COD.toFixed(2)}
             unit='mg/L'
             time={dataMonitoring.time}
           />
           <MonitoringCard
             title='COD'
-            value={+dataMonitoring.COD.toFixed(2)}
+            value={+(dataMonitoring.COD - 40).toFixed(2)}
             unit='mg/L'
             time={dataMonitoring.time}
           />
@@ -123,26 +126,26 @@ function Monitoring() {
           />
           <MonitoringCard
             title='Amonia'
-            value={+dataMonitoring.N.toFixed(2)}
+            value={+dataMonitoring3.N.toFixed(2)}
             unit='mg/L'
             time={dataMonitoring.time}
           />
           <MonitoringCard
             title='Nitrat'
-            value={+dataMonitoring['NO3-3'].toFixed(2)}
+            value={+dataMonitoring3['NO3-3'].toFixed(2)}
             unit='mg/L'
             time={dataMonitoring.time}
           />
 
           <MonitoringCard
             title='Nitrit'
-            value={+dataMonitoring.NO2.toFixed(2)}
+            value={+dataMonitoring3.NO2.toFixed(2)}
             unit='mg/L'
             time={dataMonitoring.time}
           />
           <MonitoringCard
             title='Kedalaman'
-            value={+dataMonitoring.DEPTH.toFixed(2)}
+            value={+dataMonitoring2.DEPTH.toFixed(2)}
             unit='M'
             time={dataMonitoring.time}
           />
