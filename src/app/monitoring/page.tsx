@@ -83,7 +83,7 @@ function Monitoring() {
           />
           <MonitoringCard
             title='Turbidity'
-            value={+dataMonitoring.TUR.toFixed(2)}
+            value={+dataMonitoring3.TUR.toFixed(2)}
             unit='NTU'
             time={dataMonitoring.time}
           />
